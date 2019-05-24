@@ -1,0 +1,27 @@
+version: "3.4"
+services:
+  app:
+    build:
+      context: .
+      target: NODE_PROD
+    command: npm run dev
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - PORT=4200
+      - REACT_APP_API_URL=http://127.0.0.1:3000/api
+      - NODE_ENV=development
+
+  test:
+    build:
+      context: .
+      target: NODE_DEV
+    command: npm test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=test
